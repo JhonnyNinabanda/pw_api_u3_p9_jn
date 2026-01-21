@@ -1,19 +1,58 @@
 package uce.edu.web.api.matricula.application;
 
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.util.List;
-import uce.edu.web.api.matricula.infraestructure.EstudianteRepository;
+import jakarta.transaction.Transactional;
 import uce.edu.web.api.matricula.domain.Estudiante;
+import uce.edu.web.api.matricula.infraestructure.EstudianteRepository;
 
 @ApplicationScoped
 public class EstudianteService {
 
     @Inject
-private EstudianteRepository estudianteRepository;
+    private EstudianteRepository estudianteRepository;
 
-public List<Estudiante> listarTodos() {
-    return this.estudianteRepository.listAll();
+    public List<Estudiante> ListarTodos() {
+        return this.estudianteRepository.listAll();
+    }
 
+    public Estudiante consultarPorId(Integer id) {
+        return this.estudianteRepository.findById(id.longValue());
+    }
+
+    @Transactional
+    public void crearEstudiante(Estudiante estudiante) {
+        this.estudianteRepository.persist(estudiante);
+    }
+
+    
+    @Transactional
+    public void actualizarEstudiante(Integer id, Estudiante estudiante) {
+        Estudiante estuActual = this.consultarPorId(id);
+        estuActual.apellido = estudiante.apellido;
+        estuActual.nombre = estudiante.nombre;
+        estuActual.fechaNacimiento = estudiante.fechaNacimiento;
+    }
+    
+    // SE ACTUALIZA AUTOMATICAMENTE POR DIRTY CHECKING
+    @Transactional
+    public void actualizarParcialEstudiante(Integer id, Estudiante estudiante) {
+        Estudiante estuActual = this.consultarPorId(id);
+        if (estudiante.apellido != null) {
+            estuActual.apellido = estudiante.apellido;
+        }
+        if (estudiante.nombre != null) {
+            estuActual.nombre = estudiante.nombre;
+        }
+        if (estudiante.fechaNacimiento != null) {
+            estuActual.fechaNacimiento = estudiante.fechaNacimiento;
+        }
+    }
+
+    @Transactional
+    public void deleteEstudiante(Long id) {
+        this.estudianteRepository.deleteById(id);
     }
 }
