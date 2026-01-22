@@ -10,6 +10,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import uce.edu.web.api.matricula.application.EstudianteService;
 import uce.edu.web.api.matricula.domain.Estudiante;
 
@@ -54,6 +55,36 @@ public class EstudianteResource {
     @Path("/eliminar/{id}")
     public void eliminar(@PathParam("id") Long id) {
         this.estudianteService.deleteEstudiante(id);
+    }
+
+    @GET
+    @Path("/buscarPorProvincia")
+    public List<Estudiante> buscarPorProvincia(@QueryParam("provincia") String provincia) {
+        return this.estudianteService.buscarPorProvincia(provincia);
+    }
+
+    @GET
+    @Path("/buscarPorNombreEId")
+    public List<Estudiante> buscarPorNombreEId(@QueryParam("nombre") String nombre, @QueryParam("id") Integer id) {
+        return this.estudianteService.buscarPorNombreEId(nombre, id);
+    }
+
+    @GET
+    @Path("/buscarPorNombreGeneroYProvincia")
+    public List<Estudiante> buscarPorNombreGeneroYProvincia(@QueryParam("nombre") String nombre, @QueryParam("genero") String genero, @QueryParam("provincia") String provincia) {
+        return this.estudianteService.buscarPorNombreGeneroYProvincia(nombre, genero, provincia);
+    }
+
+    @GET
+    @Path("/buscarPorNombreGeneroYProvincia")
+    public List<Estudiante> buscarPorGeneroYProvincia(@QueryParam("genero") String genero, @QueryParam("provincia") String provincia) {
+        return this.estudianteService.buscarporGeneroyProvincia(genero, provincia);
+    }
+
+    @GET
+    @Path("/buscarPorNombreIdYProvincia")
+    public List<Estudiante> buscarPorNombreIdYProvincia(@QueryParam("nombre") String nombre, @QueryParam("id") Integer id, @QueryParam("provincia") String provincia) {
+        return this.estudianteService.buscarPorNombreIdYProvincia(nombre, id, provincia);
     }
 
 }
