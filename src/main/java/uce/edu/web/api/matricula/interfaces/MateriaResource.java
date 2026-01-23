@@ -11,6 +11,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/materias")
 public class MateriaResource {
@@ -20,12 +22,14 @@ public class MateriaResource {
 
     @GET
     @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Materia> listarTodas() {
         return this.materiaService.listarTodas();
     }
 
     @GET
     @Path("/id/{id}")
+    @Produces(MediaType.APPLICATION_XML)
     public Materia consultarPorId(@PathParam("id") Integer ids) {
         return this.materiaService.consultarPorId(ids);
     }
