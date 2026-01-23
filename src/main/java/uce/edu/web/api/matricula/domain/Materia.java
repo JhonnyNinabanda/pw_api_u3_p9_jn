@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "materia")
 @SequenceGenerator(name = "materia_seq", sequenceName = "materia_secuencia", allocationSize = 1)

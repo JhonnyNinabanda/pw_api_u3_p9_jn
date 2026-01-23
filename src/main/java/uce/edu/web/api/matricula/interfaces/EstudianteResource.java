@@ -14,6 +14,9 @@ import jakarta.ws.rs.QueryParam;
 import uce.edu.web.api.matricula.application.EstudianteService;
 import uce.edu.web.api.matricula.domain.Estudiante;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
 
 @Path("/estudiantes")
 public class EstudianteResource {
@@ -23,6 +26,7 @@ public class EstudianteResource {
 
     @GET
     @Path("")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Estudiante> ListarTodos() {
         return this.estudianteService.ListarTodos();
     }
@@ -30,6 +34,7 @@ public class EstudianteResource {
     /* LUEGO SE USARA EL MODELO DE MADURES DE RICHARSON */
     @GET
     @Path("/{id}")
+    @Produces(MediaType.APPLICATION_XML)
     public Estudiante consultarPorId(@PathParam("id") Integer ids) {
         return this.estudianteService.consultarPorId(ids);
     }
@@ -45,7 +50,7 @@ public class EstudianteResource {
     @Path("/{id}")
     public Response actualizar(@PathParam("id") Integer id, Estudiante estudiante) {
         this.estudianteService.actualizarEstudiante(id, estudiante);
-        return Response.status(209).entity(estudiante).build();
+        return Response.status(209).entity("Actualizando").build();
     }
 
     @PATCH
@@ -62,6 +67,7 @@ public class EstudianteResource {
 
     @GET
     @Path("/provincia")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Estudiante> buscarPorProvincia(@QueryParam("provincia") String provincia) {
         return this.estudianteService.buscarPorProvincia(provincia);
     }
