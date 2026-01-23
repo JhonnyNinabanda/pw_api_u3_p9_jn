@@ -16,6 +16,7 @@ public class EstudianteService {
     private EstudianteRepository estudianteRepository;
 
     public List<Estudiante> ListarTodos() {
+        System.out.println("ListarTodos - EstudianteService");
         return this.estudianteRepository.listAll();
     }
 
@@ -58,6 +59,7 @@ public class EstudianteService {
     }
 
     public List<Estudiante> buscarPorProvincia(String provincia) {
+        System.out.println("Buscar por provincia en el servicio: " + provincia);
         return this.estudianteRepository.find("provincia = ?1", provincia).list();  
     }
 

@@ -21,50 +21,50 @@ public class EstudianteResource {
     private EstudianteService estudianteService;
 
     @GET
-    @Path("/todos")
+    @Path("")
     public List<Estudiante> ListarTodos() {
         return this.estudianteService.ListarTodos();
     }
 
     /* LUEGO SE USARA EL MODELO DE MADURES DE RICHARSON */
     @GET
-    @Path("/consultarPorId/{id}")
+    @Path("/{id}")
     public Estudiante consultarPorId(@PathParam("id") Integer ids) {
         return this.estudianteService.consultarPorId(ids);
     }
 
     @POST
-    @Path("/crear")
+    @Path("")
     public void guardar(Estudiante estudiante) {
         this.estudianteService.crearEstudiante(estudiante);
     }
     
     @PUT
-    @Path("/actualizar/{id}")
+    @Path("/{id}")
     public void actualizar(@PathParam("id") Integer id, Estudiante estudiante) {
         this.estudianteService.actualizarEstudiante(id, estudiante);
     }
 
     @PATCH
-    @Path("/actualizarParcial/{id}")
+    @Path("/{id}")
     public void actualizarParcial(@PathParam("id") Integer id, Estudiante estudiante) {
         this.estudianteService.actualizarParcialEstudiante(id, estudiante);
     }
 
     @DELETE
-    @Path("/eliminar/{id}")
+    @Path("/{id}")
     public void eliminar(@PathParam("id") Long id) {
         this.estudianteService.deleteEstudiante(id);
     }
 
     @GET
-    @Path("/buscarPorProvincia")
+    @Path("/provincia")
     public List<Estudiante> buscarPorProvincia(@QueryParam("provincia") String provincia) {
         return this.estudianteService.buscarPorProvincia(provincia);
     }
 
     @GET
-    @Path("/buscarPorNombreEId")
+    @Path("/nombre-e-id") 
     public List<Estudiante> buscarPorNombreEId(@QueryParam("nombre") String nombre, @QueryParam("id") Integer id) {
         return this.estudianteService.buscarPorNombreEId(nombre, id);
     }
@@ -76,7 +76,7 @@ public class EstudianteResource {
     }
 
     @GET
-    @Path("/buscarPorNombreGeneroYProvincia")
+    @Path("/genero-provincia")
     public List<Estudiante> buscarPorGeneroYProvincia(@QueryParam("genero") String genero, @QueryParam("provincia") String provincia) {
         return this.estudianteService.buscarporGeneroyProvincia(genero, provincia);
     }
