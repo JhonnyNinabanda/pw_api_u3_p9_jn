@@ -25,7 +25,7 @@ public class MateriaResource {
     }
 
     @GET
-    @Path("{id}")
+    @Path("/id/{id}")
     public Materia consultarPorId(@PathParam("id") Integer ids) {
         return this.materiaService.consultarPorId(ids);
     }
@@ -37,34 +37,34 @@ public class MateriaResource {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/id/{id}")
     public void actualizar(@PathParam("id") Integer id, Materia materia) {
         this.materiaService.actualizar(id, materia);
     }
 
     @PATCH
-    @Path("{id}")
+    @Path("/id/{id}")
     public void actualizarParcial(@PathParam("id") Integer id, Materia materia) {
         this.materiaService.actualizarParcial(id, materia);
     }
 
 
     @DELETE
-    @Path("{id}")
+    @Path("/id/{id}")
     public void eliminar(@PathParam("id") Long id) {
         this.materiaService.eliminarMateria(id);
     }
 
     // Endpoint para buscar materias por nombre
     @GET
-    @Path("/{nombre}")
+    @Path("/nombre/{nombre}")
     public List<Materia> buscarPorNombre(@PathParam("nombre") String nombre) {
         return this.materiaService.buscarPorNombre(nombre);
     }
 
     // Endpoint para contar el número de materias registradas
     @GET
-    @Path("")
+    @Path("/count")
     public long contarMaterias() {
         return this.materiaService.contarMaterias();
     }
