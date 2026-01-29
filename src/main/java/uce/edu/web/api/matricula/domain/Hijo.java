@@ -1,5 +1,6 @@
 package uce.edu.web.api.matricula.domain;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,10 +16,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "hijo")
 @SequenceGenerator(name = "hijo_seq", sequenceName = "hijo_secuencia", allocationSize = 1)
-public class Hijo {
+public class Hijo extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hijo_seq")
-    private Integer id;
+    public Integer id;
     public String nombre;
     public Integer apellido;
 

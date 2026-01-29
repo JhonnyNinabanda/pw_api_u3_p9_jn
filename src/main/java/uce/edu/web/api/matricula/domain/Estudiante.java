@@ -11,12 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 
 
-@XmlRootElement
 @Entity
 @Table (name = "estudiante")
 @SequenceGenerator(name = "estudiante_seq", sequenceName = "estudiante_secuencia", allocationSize = 1)

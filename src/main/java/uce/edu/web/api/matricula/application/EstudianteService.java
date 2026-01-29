@@ -1,14 +1,15 @@
 package uce.edu.web.api.matricula.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import uce.edu.web.api.matricula.application.representation.EstudianteRepresentation;
 import uce.edu.web.api.matricula.domain.Estudiante;
 import uce.edu.web.api.matricula.infraestructure.EstudianteRepository;
-import uce.edu.web.api.matricula.application.representation.EstudianteRepresentation;
-import java.util.ArrayList;
+
 
 
 
@@ -21,7 +22,7 @@ public class EstudianteService {
     public List<EstudianteRepresentation> ListarTodos() {
         List<EstudianteRepresentation> list = new ArrayList<>();
         for(Estudiante estu : this.estudianteRepository.listAll()){
-            list.add(this.mapperToER(estu));
+            list.add(this.mapperToEstudianteRepresentation(estu));
 
         }
 
@@ -29,7 +30,7 @@ public class EstudianteService {
     }
 
     public EstudianteRepresentation consultarPorId(Integer id) {
-        return this.mapperToER(this.estudianteRepository.findById(id.longValue()));
+        return this.mapperToEstudianteRepresentation(this.estudianteRepository.findById(id.longValue()));
 
     }
 
@@ -67,12 +68,9 @@ public class EstudianteService {
         this.estudianteRepository.deleteById(id);
     }
 
-    public List<EstudianteRepresentation> buscarPorProvincia(String provincia, String genero) {
-        List<EstudianteRepresentation> list = new ArrayList<>();
-        for(Estudiante estu : this.estudianteRepository.find("provincia = ?1 and genero = ?2", provincia, genero).list()){
-            list.add(this.mapperToER(estu));
-        }
-        return list;
+    public List<Estudiante> buscarPorProvincia(String provincia) {
+        System.out.println("Buscar por Provincia en el servicio: " + provincia);
+        return this.estudianteRepository.find("provincia = ?1", provincia).list();
     }
 
     public List<Estudiante> buscarporGeneroyProvincia(String genero, String provincia) {
@@ -104,8 +102,8 @@ public class EstudianteService {
                 .find("nombre = ?1 and id = ?2 and provincia = ?3", nombre, id.longValue(), provincia).list();
     }
 
-    private EstudianteRepresentation mapperToER(Estudiante est) {
-        EstudianteRepresentation estuR = new EstudianteRepresentation();
+    private Estudiante mapperToEstudiante(EstudianteRepresentation est) {
+        Estudiante estuR = new Estudiante();
         estuR.id = est.id;
         estuR.nombre = est.nombre;
         estuR.apellido = est.apellido;
@@ -115,14 +113,15 @@ public class EstudianteService {
         return estuR;
     }
 
-      private Estudiante mapperToEstudiante(EstudianteRepresentation est) {
-        Estudiante estuR = new Estudiante();
+      private EstudianteRepresentation mapperToEstudianteRepresentation(Estudiante est) {
+        EstudianteRepresentation estuR = new EstudianteRepresentation();
         estuR.id = est.id;
         estuR.nombre = est.nombre;
         estuR.apellido = est.apellido;
         estuR.fechaNacimiento = est.fechaNacimiento;
         estuR.provincia = est.provincia;
         estuR.genero = est.genero;
+
         return estuR;
     }
 
