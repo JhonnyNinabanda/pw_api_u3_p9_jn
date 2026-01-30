@@ -42,26 +42,38 @@ public class EstudianteService {
     
     @Transactional
     public void actualizarEstudiante(Integer id, EstudianteRepresentation estudiante) {
-        Estudiante estuActual = this.mapperToEstudiante(this.consultarPorId(id));
-        estuActual.apellido = estudiante.apellido;
-        estuActual.nombre = estudiante.nombre;
-        estuActual.fechaNacimiento = estudiante.fechaNacimiento;
-    }
+    Estudiante estuActual = this.estudianteRepository.findById(id.longValue());
+
+    estuActual.nombre = estudiante.nombre;
+    estuActual.apellido = estudiante.apellido;
+    estuActual.fechaNacimiento = estudiante.fechaNacimiento;
+    estuActual.provincia = estudiante.provincia;
+    estuActual.genero = estudiante.genero;
+}
+
     
     // SE ACTUALIZA AUTOMATICAMENTE POR DIRTY CHECKING
     @Transactional
     public void actualizarParcialEstudiante(Integer id, EstudianteRepresentation estudiante) {
-        Estudiante estuActual = this.mapperToEstudiante(this.consultarPorId(id));
-        if (estudiante.apellido != null) {
-            estuActual.apellido = estudiante.apellido;
-        }
-        if (estudiante.nombre != null) {
-            estuActual.nombre = estudiante.nombre;
-        }
-        if (estudiante.fechaNacimiento != null) {
-            estuActual.fechaNacimiento = estudiante.fechaNacimiento;
-        }
+    Estudiante estuActual = this.estudianteRepository.findById(id.longValue());
+
+    if (estudiante.nombre != null) {
+        estuActual.nombre = estudiante.nombre;
     }
+    if (estudiante.apellido != null) {
+        estuActual.apellido = estudiante.apellido;
+    }
+    if (estudiante.fechaNacimiento != null) {
+        estuActual.fechaNacimiento = estudiante.fechaNacimiento;
+    }
+    if (estudiante.provincia != null) {
+        estuActual.provincia = estudiante.provincia;
+    }
+    if (estudiante.genero != null) {
+        estuActual.genero = estudiante.genero;
+    }
+}
+
 
     @Transactional
     public void deleteEstudiante(Long id) {
