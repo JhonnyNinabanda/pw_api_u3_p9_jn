@@ -68,6 +68,7 @@ public class EstudianteResource {
     
     @PUT
     @Path("/{id}")
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response actualizar(@PathParam("id") Integer id, EstudianteRepresentation estudiante) {

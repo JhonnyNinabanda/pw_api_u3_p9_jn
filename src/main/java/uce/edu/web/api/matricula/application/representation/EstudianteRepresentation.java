@@ -1,7 +1,7 @@
 package uce.edu.web.api.matricula.application.representation;
 
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EstudianteRepresentation {
     public Integer id;
